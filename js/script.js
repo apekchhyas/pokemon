@@ -247,7 +247,7 @@ function changeName() {
 }
 
 fight.addEventListener('click', function () {
-  menuArea.style.backgroundImage = 'url("../assets/images/menu_box_fight.jpg")';
+  menuArea.style.backgroundImage = 'url(../assets/images/menu_box_fight.jpg)';
   firstPage.innerHTML = "";
   question.style.display = 'none';
   menuList.style.display = 'none';
