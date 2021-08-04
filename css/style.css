@@ -1,0 +1,124 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "Pokefont";
+  font-style: normal;
+  font-weight: 500;
+  src: url(../assets/fonts/PokemonGb-RAeo.ttf);
+}
+
+body {
+  font-family: "Pokefont";
+  background-color: #2e3133;
+}
+
+.container {
+  width: 1140px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.pokemon-game {
+  height: 100vh;
+}
+
+.wrapper {
+  background-image: url(/assets/images/switch.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-top: 60px;
+  /* position: relative; */
+}
+
+.pokemon-game {
+  /* position: absolute; */
+  background: #fff;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-right: 20%;
+  margin-left: 20%;
+  height: 100vh;
+
+  background-position: right 50px;
+}
+
+.startScreen {
+  background-image: url(/assets/images/download.gif);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right 50px;
+  width: 59%;
+  height: 100%;
+  margin-left: 20%;
+  transition: ease 2s;
+}
+
+.pokemon-logo {
+  width: 20%;
+  height: 20%;
+}
+
+.pokemon-logo img {
+  width: 250%;
+  margin-top: 60px;
+  margin-left: 120%;
+}
+
+.startButton {
+  position: absolute;
+  background: transparent;
+  border: 0;
+  font-size: 40px;
+  color: black;
+  text-shadow: 2px 2px white;
+  font-family: "Pokefont";
+  padding: 20px 20px;
+  top: 350px;
+  left: 450px;
+  cursor: pointer;
+  animation: change 2s ease infinite;
+}
+
+@keyframes change {
+  0% {
+    opacity: 100%;
+  }
+  50% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+.tile {
+  background-image: url(/assets/images/0.png);
+}
+
+.tile1 {
+  background-image: url(/assets/images/1.png);
+}
+
+.tile2 {
+  background-image: url(/assets/images/2.png);
+}
+
+.tile3 {
+  background-image: url(/assets/images/3.png);
+}
+
+.tile4 {
+  background-image: url(/assets/images/4.png);
+}
+
+div.fadeOut {
+  opacity: 0;
+}
+
+.gameScreen {
+  background-image: url(/assets/images/pokemon_terrain.jpg);
+}

@@ -5,153 +5,198 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <title>Pokemon</title>
+  <title>Pokémon</title>
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/styles.css">
+
 </head>
 
 <body>
 
   <div class="container">
 
-    <div class="game" id="game">
+    <div class="wrapper" id="wrapper">
 
-      <div class="game-screen">
+      <div class="pokemon-game" id="pokemon-game">
 
-        <div class="choose-screen">
-          <p class="title">Choose your Pokemon</p>
-          <div class="balls">
-            <button class="ball ball1" id="1" onclick="changeScreen(1);">
-              <img src=" /images/pokeball.png" alt="">
-              <p>Charizard</p>
-            </button>
-            <button class="ball ball2" onclick="changeScreen();">
-              <img src="/images/pokeball.png" alt="">
-              <p>Blastoise</p>
-            </button>
-            <button class="ball ball3" onclick="changeScreen();">
-              <img src="/images/pokeball.png" alt="">
-              <p>Venusaur</p>
-            </button>
+        <div class="startScreen">
+          <div class="pokemon-logo">
+            <img src="/assets/images/logo1.png" alt="">
           </div>
+          <button class="startButton">Press Start</button>
         </div>
 
-        <div class="battle-screen">
-
-          <div class="pokemon-battle">
-            <div class="battle-area">
-
-              <div class="player-pokemon">
-                <div class="player-stats__bar" id="player-stats__bar"></div>
-                <div class=" stats player-pokemon--stats">
-                  <div class="top">
-                    <div class="pokeball">
-                      <img src="/images/pokeball.png" alt="">
-                      <img src="/images/pokeball.png" alt="">
-                      <img src="/images/pokeball.png" alt="">
-                      <img src="/images/pokeball.png" alt="">
-                      <img src="/images/pokeball.png" alt="">
-                      <img src="/images/pokeball.png" alt="">
-
-                    </div>
-                    <div class="playerhp" id="playerhp">Hp: 5</div>
-                  </div>
-                  <div class="bottom">
-                    <span class="player-name" id="player-name"></span>
-                    <span class="level" id="level"></span>
-                  </div>
-                </div>
-
-                <div class="player-pokemoncoll">
-                  <div class="charizard hide"></div>
-                  <div class="blastoise hide"></div>
-                  <div class="venusaur hide"></div>
-                </div>
-
-              </div>
-
-              <div class="opponent-pokemon">
-                <div class="opponent-stats__bar" id="opponent-stats__bar"></div>
-                <div class="stats opponent-pokemon--stats">
-                  <div class="top">
-                    <div class="pokeball">
-                      <img src="/images/pokeball.png" alt="">
-                      <img src="/images/pokeball.png" alt="">
-                      <img src="/images/pokeball.png" alt="">
-                      <img src="/images/pokeball.png" alt="">
-                      <img src="/images/pokeball.png" alt="">
-                      <img src="/images/pokeball.png" alt="">
-
-                    </div>
-                    <div class="foehp">Hp: 5</div>
-                  </div>
-                  <div class="bottom">
-                    <span class="name">Pikachu</span>
-                    <span class="level">LVL: 100</span>
-                  </div>
-                </div>
-                <div class="pikachu"></div>
-              </div>
-
-            </div>
+        <div class="loadingScreen" id="loadingScreen">
+          <div class="loadScreen">
           </div>
-          <div class="menu-area" id="menu-area">
-
-            <div class="menu">
-
-              <div class="first-page" id="first-page">
-
-                <div class="question">
-                  What should <br>Charmender do?
-                </div>
-
-                <div class="menu-items" id="menu-items">
-
-                  <ul class="menu-list">
-                    <li class="menu-list__item">
-                      <button class="menu-button fight">FIGHT</button>
-                    </li>
-                    <li class=" menu-list__item"> <button class="menu-button">BAG</button></li>
-                    <li class="menu-list__item"> <button class="menu-button">POKEMON</button></li>
-                    <li class="menu-list__item"> <button class="menu-button run">RUN</button></li>
-                  </ul>
-
-                </div>
-              </div>
-
-              <div class="second-page hide" id="second-page">
-
-                <ul class="attack-list">
-                  <li class="attack-list__item"> <button class="attack-button attack-button1">Ember</button></li>
-                  <li class="attack-list__item"> <button class="attack-button attack-button2">Dragon Claw</button></li>
-                  <li class="attack-list__item"><button class="attack-button attack-button3">Scratch</button></li>
-                  <li class="attack-list__item"><button class="attack-button attack-button4">Fire Tail</button></li>
-                </ul>
-
-                <div class="comment" id="comment">
-
-                </div>
-              </div>
-
-            </div>
-          </div>
+          <p class="loadingText" id="loadingText">Loading...</p>
         </div>
+
+        <div class="game" id="game">
+
+          <div class="choose-screen hide">
+            <p class="title">Choose your Pokemon</p>
+            <div class="balls">
+              <button class="ball ball1" onclick="changeScreen(1);">
+                <img src="/assets/images/pokeball.png" alt="">
+                <p>Charizard</p>
+              </button>
+              <button class="ball ball2" onclick="changeScreen(2);">
+                <img src="/assets/images/pokeball.png" alt="">
+                <p>Blastoise</p>
+              </button>
+              <button class="ball ball3" onclick="changeScreen(3);">
+                <img src="/assets/images/pokeball.png" alt="">
+                <p>Venusaur</p>
+              </button>
+            </div>
+          </div>
+
+          <div class="gameScreen" id="gameScreen">
+            <div class="player" id="player"></div>
+
+            <div class="professor" id="professor"></div>
+
+            <div class="gary hide" id="gary"></div>
+
+            <div class="box fadeOut">
+              <p class="box-text" id="box-text">Welcome to the world of Pokémon, Ash! Talk to Prof. Oak to get your
+                first pokemon.
+              </p>
+            </div>
+          </div>
+
+          <div class="battle-screen hide">
+
+            <div class="pokemon-battle">
+              <div class="battle-area">
+
+                <div class="player-pokemon">
+                  <div class="player-stats__bar" id="player-stats__bar">
+
+                  </div>
+                  <div class=" stats player-pokemon--stats">
+                    <div class="top">
+                      <div class="pokeball">
+                        <img src="assets/images/pokeball.png" alt="">
+                        <img src="assets/images/pokeball-bw.png" alt="">
+                        <img src="assets/images/pokeball-bw.png" alt="">
+                        <img src="assets/images/pokeball-bw.png" alt="">
+                        <img src="assets/images/pokeball-bw.png" alt="">
+                        <img src="assets/images/pokeball-bw.png" alt="">
+                      </div>
+                      <div class="playerhp" id="playerhp">Hp: 5</div>
+                    </div>
+                    <div class="bottom">
+                      <span class="player-name" id="player-name"></span>
+                      <span class="level" id="level"></span>
+                    </div>
+
+
+                  </div>
+                  <div class="player-pokemoncoll">
+                    <div class="charizard hide" id="charizard-move"></div>
+                    <div class="blastoise hide" id="blastoise"></div>
+                    <div class="venusaur hide" id="venusaur"></div>
+                  </div>
+                </div>
+
+
+                <div class="opponent-pokemon">
+                  <div class="opponent-stats__bar" id="opponent-stats__bar"></div>
+                  <div class="stats opponent-pokemon--stats">
+                    <div class="top">
+                      <div class="pokeball">
+                        <img src="assets/images/pokeball-bw.png" alt="">
+                        <img src="assets/images/pokeball-bw.png" alt="">
+                        <img src="assets/images/pokeball-bw.png" alt="">
+                        <img src="assets/images/pokeball-bw.png" alt="">
+                        <img src="assets/images/pokeball-bw.png" alt="">
+                        <img src="assets/images/pokeball.png" alt="">
+
+                      </div>
+                      <div class="foehp">Hp: 5</div>
+                    </div>
+                    <div class="bottom">
+                      <span class="name">Pikachu</span>
+                      <span class="level">LVL: 120</span>
+                    </div>
+                  </div>
+                  <div class="pikachu"></div>
+                </div>
+
+              </div>
+
+              <div class="menu-area" id="menu-area">
+
+                <div class="menu">
+
+                  <div class="first-page" id="first-page">
+
+                    <div class="question">
+                      What should <br>Charmender do?
+                    </div>
+
+                    <div class="menu-items" id="menu-items">
+
+                      <ul class="menu-list">
+                        <li class="menu-list__item">
+                          <button class="menu-button fight">FIGHT</button>
+                        </li>
+                        <li class=" menu-list__item"> <button class="menu-button">BAG</button></li>
+                        <li class="menu-list__item"> <button class="menu-button">POKEMON</button></li>
+                        <li class="menu-list__item"> <button class="menu-button run">RUN</button></li>
+                      </ul>
+
+                    </div>
+                  </div>
+
+                  <div class="second-page hide" id="second-page">
+
+                    <ul class="attack-list">
+                      <li class="attack-list__item"> <button class="attack-button attack-button1">Ember</button>
+                      </li>
+                      <li class="attack-list__item"> <button class="attack-button attack-button2">Dragon
+                          Claw</button>
+                      </li>
+                      <li class="attack-list__item"><button class="attack-button attack-button3">Scratch</button>
+                      </li>
+                      <li class="attack-list__item"><button class="attack-button attack-button4">Fire Tail</button>
+                      </li>
+                    </ul>
+
+                    <div class="comment" id="comment">
+
+                    </div>
+
+                    <div class="foe-comment" id="foe-comment">
+                      <p class="foe-comment-box" id="foe-comment-box">hello</p>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+          <div class="end-screen hide">
+            <p class="end-screen__message">You lose!</p>
+            <img src="/assets/images/pokemons.gif" class="end-screen__image">
+            <button class="play-again"> Play again</button>
+          </div>
+
+        </div>
+
       </div>
 
-
-
-
-      <div class="end-screen hide">
-        <p class="end-screen__message">You lose!</p>
-        <img src="/images/pokemons.gif" class="end-screen__image">
-        <button class="play-again"> Play again</button>
-
-      </div>
     </div>
-
-  </div>
 
 </body>
 
-<script src="game.js"></script>
+<script src="js/script.js" type="text/javascript"></script>
 
 </html>
