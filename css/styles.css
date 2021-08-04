@@ -335,14 +335,14 @@ div.fadeIn {
 
 .battle-area {
   height: 80vh;
-  background: url(/assets/images/arena-forrest.png) no-repeat;
+  background: url(../assets/images/arena-forrest.png) no-repeat;
   background-position: center;
   background-size: cover;
 }
 
 .menu-area {
   height: 20vh;
-  background: url(/assets/images/menu_box_overview.jpg) no-repeat;
+  background: url(../assets/images/menu_box_overview.jpg) no-repeat;
   background-position: center;
   background-size: contain;
   padding: 35px;
@@ -409,7 +409,7 @@ div.fadeIn {
 }
 
 .venusaur {
-  background-image: url(/assets/images/tenor-unscreen.gif);
+  background-image: url("../assets/images/tenor-unscreen.gif");
   background-size: contain;
   width: 150px;
   height: 100px;
@@ -420,7 +420,7 @@ div.fadeIn {
 }
 
 .pikachu {
-  background-image: url(/assets/images/pikachu.gif);
+  background-image: url("../assets/images/pikachu.gif");
   background-size: contain;
   width: 200px;
   height: 200px;
@@ -483,7 +483,7 @@ div.fadeIn {
   position: absolute;
   bottom: 0;
   z-index: 2;
-  background: url(/assets/images/box.jpg) no-repeat;
+  background: url("../assets/images/box.jpg") no-repeat;
   background-size: contain;
   height: 30%;
   width: 100%;
