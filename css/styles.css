@@ -28,7 +28,7 @@ body {
 }
 
 .startScreen {
-  background-image: url(/assets/images/download.gif);
+  background-image: url(../assets/images/download.gif);
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
@@ -101,68 +101,68 @@ div.fadeIn {
 }
 
 .tile0 {
-  background-image: url(/assets/images/0.jpg);
+  background-image: url(../assets/images/0.jpg);
 }
 
 .tile1 {
-  background-image: url(/assets/images/1.jpg);
+  background-image: url(../assets/images/1.jpg);
 }
 
 .tile2 {
-  background-image: url(/assets/images/2.jpg);
+  background-image: url(../assets/images/2.jpg);
 }
 
 .tile3 {
-  background-image: url(/assets/images/3.jpg);
+  background-image: url(../assets/images/3.jpg);
 }
 
 .tile4 {
-  background-image: url(/assets/images/4.jpg);
+  background-image: url(../assets/images/4.jpg);
 }
 
 .tile5 {
-  background-image: url(/assets/images/5.jpg);
+  background-image: url(../assets/images/5.jpg);
 }
 .tile6 {
-  background-image: url(/assets/images/6.jpg);
+  background-image: url(../assets/images/6.jpg);
 }
 .tile7 {
-  background-image: url(/assets/images/7.jpg);
+  background-image: url(../assets/images/7.jpg);
 }
 .tile8 {
-  background-image: url(/assets/images/8.jpg);
+  background-image: url(../assets/images/8.jpg);
 }
 .tile9 {
-  background-image: url(/assets/images/9.jpg);
+  background-image: url(../assets/images/9.jpg);
 }
 .tile10 {
-  background-image: url(/assets/images/10.jpg);
+  background-image: url(../assets/images/10.jpg);
 }
 .tile11 {
-  background-image: url(/assets/images/11.jpg);
+  background-image: url(../assets/images/11.jpg);
 }
 .tile12 {
-  background-image: url(/assets/images/12.jpg);
+  background-image: url(../assets/images/12.jpg);
 }
 .tile13 {
-  background-image: url(/assets/images/13.jpg);
+  background-image: url(../assets/images/13.jpg);
 }
 .tile14 {
-  background-image: url(/assets/images/14.jpg);
+  background-image: url(../assets/images/14.jpg);
 }
 .tile15 {
-  background-image: url(/assets/images/15.jpg);
+  background-image: url(../assets/images/15.jpg);
 }
 .tile16 {
-  background-image: url(/assets/images/8.jpg);
+  background-image: url(../assets/images/8.jpg);
 }
 
 .tile17 {
-  background-image: url(/assets/images/17.jpg);
+  background-image: url(../assets/images/17.jpg);
 }
 
 .tile18 {
-  background-image: url(/assets/images/18.jpg);
+  background-image: url(../assets/images/18.jpg);
 }
 
 .box {
@@ -170,7 +170,7 @@ div.fadeIn {
   position: absolute;
   bottom: 0;
   z-index: 2;
-  background: url(/assets/images/box.jpg) no-repeat;
+  background: url(../assets/images/box.jpg) no-repeat;
   background-size: contain;
   height: 30%;
   width: 100%;
@@ -219,7 +219,7 @@ div.fadeIn {
 .player,
 .professor,
 .gary {
-  background-image: url("/assets/images/ash-sprite.png");
+  background-image: url("../assets/images/ash-sprite.png");
   /* background-color: green; */
   height: 72px;
   width: 68px;
@@ -230,7 +230,7 @@ div.fadeIn {
 }
 
 .gary {
-  background-image: url("/assets/images/gary.png");
+  background-image: url("../assets/images/gary.png");
   height: 68px;
   width: 68px;
   top: 216px;
@@ -238,7 +238,7 @@ div.fadeIn {
 }
 
 .professor {
-  background-image: url("/assets/images/oak.png");
+  background-image: url("../assets/images/oak.png");
   height: 67px;
   width: 55px;
   top: 432px;
@@ -386,7 +386,7 @@ div.fadeIn {
 }
 
 .charizard {
-  background-image: url("/assets/images/charizard.gif");
+  background-image: url("../assets/images/charizard.gif");
   background-size: contain;
   background-repeat: no-repeat;
   width: 250px;
@@ -398,7 +398,7 @@ div.fadeIn {
 }
 
 .blastoise {
-  background-image: url("/assets/images/blastoise.gif");
+  background-image: url("../assets/images/blastoise.gif");
   background-size: contain;
   width: 140px;
   height: 140px;
