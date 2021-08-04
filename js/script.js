@@ -1,8 +1,20 @@
-// // Todo:
-// // 1. Create object as database for pokemon 
-// // 2. Tilemap
-// // 3. movement of ash
-// // 4. battle
+// sfx
+
+let startMusic = new Audio();
+let mainTheme = new Audio();
+let playerVictory = new Audio();
+let pokemonBattleMusic = new Audio();
+let garyAppearance = new Audio();
+let attack = new Audio();
+let playerLoss = new Audio();
+
+mainTheme.src = '../assets/sfx/main-theme.mp3'
+playerVictory.src = '../assets/sfx/pokemonvictory.mp3'
+pokemonBattleMusic.src = '../assets/sfx/pokemonbattle.mp3'
+startMusic.src = '../assets/sfx/gameboy_start.mp3'
+garyAppearance.src = '../assets/sfx/garyappearance.mp3'
+attack.src = '../assets/sfx/attack.wav'
+playerLoss.src = '../assets/sfx/over.mp3'
 
 // screens
 
@@ -28,6 +40,12 @@ const menuList = document.getElementById('menu-items');
 const box = document.querySelector('.box');
 const endScreenMessage = document.querySelector('.end-screen__message');
 const endScreenImage = document.querySelector('.end-screen__image');
+let gary = document.getElementById('gary');
+var boxText = document.getElementById("box-text");
+const exclamation = document.getElementById('exclamation');
+foeComment = document.getElementById('foe-comment');
+foeCommentBox = document.getElementById('foe-comment-box');
+foeComment.style.display = 'none';
 
 // choose pokemon screen items
 
@@ -40,8 +58,7 @@ const userPokemon3 = document.querySelector('.ball3');
 const charizardDiv = document.querySelector('.charizard');
 const blastoiseDiv = document.querySelector('.blastoise');
 const venusaurDiv = document.querySelector('.venusaur');
-
-let charizard = document.getElementById('charizard-move');
+const pikachuDiv = document.querySelector('.pikachu');
 
 // pokemon hps and levels
 
@@ -58,6 +75,11 @@ const attackButton2 = document.querySelector('.attack-button2');
 const attackButton3 = document.querySelector('.attack-button3');
 const attackButton4 = document.querySelector('.attack-button4');
 
+// progress bar
+
+const playerProgress = document.getElementById('player-stats__bar');
+const foeProgress = document.getElementById('opponent-stats__bar');
+
 // creating object as a database for pokemon list
 
 const pokemonDB = [
@@ -68,7 +90,6 @@ const pokemonDB = [
     level: 100,
     type: 'fire',
     attacks: {
-
       attack1:
       {
         attackname: 'Flamethrower',
@@ -201,340 +222,26 @@ const pokemonDB = [
   }
 ];
 
+// initialization during first game load
 let count = 0;
+
 let player = {
   pokemon: pokemon1,
   talk: false,
-  tilechange: false
+  choose: false,
 };
 
-let gary = document.getElementById('gary');
 let foe = { pokemon: pokemon4 }
-
-let professor = document.querySelector('.professor');
-
-function choosePokemonText() {
-  boxText.innerHTML = "";
-  boxText.innerHTML = "Great choice! You picked " + player.pokemon.name + "! It's a " + player.pokemon.type + " type pokemon. You can get going now :)"
-  gameScreen.classList.remove('hide');
-}
-
-function changeScreen(ballIndex) {
-  chooseScreen.style.display = 'none';
-  gameScreen.classList.remove('fadeOut');
-  gameScreen.classList.add('fadeIn');
-
-  if (ballIndex == 1) {
-    player.pokemon = pokemon1;
-    choosePokemonText();
-  }
-  if (ballIndex == 2) {
-    player.pokemon = pokemon2;
-    console.log('you picked' + player.pokemon.name);
-    choosePokemonText();
-  }
-  if (ballIndex == 3) {
-    player.pokemon = pokemon3;
-    console.log('you picked' + player.pokemon.name);
-    choosePokemonText();
-  }
-  renderPokemon();
-}
-
-function changeName() {
-  question.innerHTML = "";
-  question.innerHTML = "What should " + player.pokemon.name + " do?"
-}
-
-fight.addEventListener('click', function () {
-  menuArea.style.backgroundImage = "url('../assets/images/menu_box_fight.jpg')";
-  firstPage.innerHTML = "";
-  question.style.display = 'none';
-  menuList.style.display = 'none';
-  secondPage.classList.remove('hide');
-  secondPage.style.display = 'flex';
-});
-
-
-run.addEventListener('click', function () {
-  endPage();
-});
-
-
-playAgain.addEventListener('click', function () {
-  location.reload();
-});
-
-function endPage() {
-  battleScreen.style.display = "none";
-  endScreen.classList.remove('hide');
-  endScreen.style.display = "block";
-  endScreen.style.background = '#843118';
-}
-
-function renderPokemon() {
-
-  if (player.pokemon.name == "Charizard") {
-    console.log('yay');
-
-    charizardDiv.classList.remove('hide');
-
-    changeName();
-    attackMenuChange();
-    updateHp();
-    updateName();
-    updateLevel();
-  }
-
-  if (player.pokemon.name == "Blastoise") {
-
-    blastoiseDiv.classList.remove('hide');
-
-    changeName();
-    attackMenuChange();
-    updateHp();
-    updateName();
-    updateLevel();
-  }
-
-  if (player.pokemon.name == "Venusaur") {
-
-    venusaurDiv.classList.remove('hide');
-
-    changeName();
-    attackMenuChange();
-    updateHp();
-    updateName();
-    updateLevel();
-  }
-}
-
-function updateHp() {
-  playerHp.innerHTML = "HP: " + player.pokemon.hp;
-  foeHp.innerHTML = "HP: " + foe.pokemon.hp;
-}
-
-function updateName() {
-  pokemonName.innerHTML = player.pokemon.name;
-}
-
-function updateLevel() {
-  pokemonLevel.innerHTML = "LVL: " + player.pokemon.level;
-}
-
-function attackMenuChange() {
-  attackButton1.innerHTML = player.pokemon.attacks.attack1.attackname;
-  attackButton2.innerHTML = player.pokemon.attacks.attack2.attackname;
-  attackButton3.innerHTML = player.pokemon.attacks.attack3.attackname;
-  attackButton4.innerHTML = player.pokemon.attacks.attack4.attackname;
-}
 
 
 start.addEventListener('click', function () {
+  startMusic.play();
+
   gameStart();
 });
 
-// handle attacks + hp updates
-
-const playerProgress = document.getElementById('player-stats__bar');
-const foeProgress = document.getElementById('opponent-stats__bar');
-
-
-function playerProgressBar() {
-  let percentage = player.pokemon.hp / player.pokemon.totalhp;
-  if (percentage <= 0.8) {
-    playerProgress.style.backgroundColor = "#E2C01C";
-    if (percentage <= 0.4) {
-      playerProgress.style.backgroundColor = 'red';
-    }
-  }
-  playerProgress.style.width = ((350 * percentage) + "px");
-}
-
-function foeAttack() {
-  let random = Math.floor((Math.random() * 4));
-  console.log(random);
-  player.pokemon.hp -= (foe.pokemon.attacks[random].attack.power);
-  playerHp.innerHTML = "HP: " + player.pokemon.hp;
-  foeComment.style.display = 'block';
-  foeCommentBox.innerHTML = "";
-  foeCommentBox.innerHTML = "It's foe Pikachu's turn. Pikachu <br> used " + foe.pokemon.attacks[random].attack.attackname + ".";
-  setTimeout(function () {
-    foeComment.style.display = 'none';
-  }, 2500)
-}
-
-foeComment = document.getElementById('foe-comment');
-foeCommentBox = document.getElementById('foe-comment-box');
-foeComment.style.display = 'none';
-
-
-attackButton1.addEventListener('click', function attack() {
-
-  foe.pokemon.hp -= (player.pokemon.attacks.attack1.power);
-  foeHp.innerHTML = "HP: " + foe.pokemon.hp;
-  foeComment.style.display = 'block';
-  foeCommentBox.innerHTML = player.pokemon.name + " used " + player.pokemon.attacks.attack1.attackname;
-
-
-
-  let percentage = foe.pokemon.hp / foe.pokemon.totalhp;
-  if (percentage <= 0.8) {
-    foeProgress.style.backgroundColor = "#E2C01C";
-    if (percentage <= 0.4) {
-      foeProgress.style.backgroundColor = 'red';
-    }
-  }
-  foeProgress.style.width = ((350 * percentage) + "px");
-
-  if (foe.pokemon.hp <= 0) {
-    playerWin();
-  }
-
-  else {
-
-    setTimeout(function () {
-      foeAttack();
-      playerProgressBar();
-      if (player.pokemon.hp <= 0) {
-        foeWin();
-
-      }
-    }, 3000);
-  }
-
-});
-
-
-attackButton2.addEventListener('click', function attack() {
-
-  foe.pokemon.hp -= (player.pokemon.attacks.attack2.power);
-  foeHp.innerHTML = "HP: " + foe.pokemon.hp;
-  foeComment.style.display = 'block';
-  foeCommentBox.innerHTML = player.pokemon.name + " used " + player.pokemon.attacks.attack2.attackname;
-
-
-  let percentage = foe.pokemon.hp / foe.pokemon.totalhp;
-  if (percentage <= 0.8) {
-    foeProgress.style.backgroundColor = "#E2C01C";
-    if (percentage <= 0.4) {
-      foeProgress.style.backgroundColor = 'red';
-    }
-  }
-  foeProgress.style.width = ((350 * percentage) + "px");
-
-  if (foe.pokemon.hp <= 0) {
-    playerWin();
-  }
-
-  else {
-
-    setTimeout(function () {
-      foeAttack();
-      playerProgressBar();
-      if (player.pokemon.hp <= 0) {
-        foeWin();
-
-      }
-    }, 3000);
-  }
-
-});
-
-attackButton3.addEventListener('click', function attack() {
-
-  foe.pokemon.hp -= (player.pokemon.attacks.attack3.power);
-  foeHp.innerHTML = "HP: " + foe.pokemon.hp;
-  foeComment.style.display = 'block';
-  foeCommentBox.innerHTML = player.pokemon.name + " used " + player.pokemon.attacks.attack3.attackname;
-
-
-  let percentage = foe.pokemon.hp / foe.pokemon.totalhp;
-  if (percentage <= 0.8) {
-    foeProgress.style.backgroundColor = "#E2C01C";
-    if (percentage <= 0.4) {
-      foeProgress.style.backgroundColor = 'red';
-    }
-  }
-  foeProgress.style.width = ((350 * percentage) + "px");
-
-  if (foe.pokemon.hp <= 0) {
-    playerWin();
-  }
-
-  else {
-
-    setTimeout(function () {
-      foeAttack();
-      playerProgressBar();
-      if (player.pokemon.hp <= 0) {
-        foeWin();
-
-      }
-    }, 3000);
-  }
-
-});
-
-attackButton4.addEventListener('click', function attack() {
-
-  foe.pokemon.hp -= (player.pokemon.attacks.attack4.power);
-  foeHp.innerHTML = "HP: " + foe.pokemon.hp;
-  foeComment.style.display = 'block';
-  foeCommentBox.innerHTML = player.pokemon.name + " used " + player.pokemon.attacks.attack4.attackname + ".";
-
-
-  let percentage = foe.pokemon.hp / foe.pokemon.totalhp;
-  if (percentage <= 0.8) {
-    foeProgress.style.backgroundColor = "#E2C01C";
-    if (percentage <= 0.4) {
-      foeProgress.style.backgroundColor = 'red';
-    }
-  }
-  foeProgress.style.width = ((350 * percentage) + "px");
-
-  if (foe.pokemon.hp <= 0) {
-    playerWin();
-  }
-
-  else {
-
-    setTimeout(function () {
-      foeAttack();
-      playerProgressBar();
-      if (player.pokemon.hp <= 0) {
-        foeWin();
-
-      }
-    }, 3000);
-  }
-
-});
-
-
-
-function foeWin() {
-  player.pokemon.hp = 0;
-  updateHp();
-  comment.innerHTML = "Pikachu won"
-  endPage();
-};
-
-function playerWin() {
-  foe.pokemon.hp = 0;
-  updateHp();
-  comment.innerHTML = "You Won!"
-  winnerEndScreen();
-}
-
-function winnerEndScreen() {
-  battleScreen.style.display = 'none';
-  endScreen.classList.remove('hide');
-  endScreenMessage.innerHTML = 'You Won!'
-}
 
 // tile map rendering
-
 
 const TILE_WIDTH = 68;
 const TILE_HEIGHT = 72;
@@ -542,59 +249,21 @@ const TILE_HEIGHT = 72;
 const TIME_INTERVAL = 100;
 
 var startTileMap = [
-  [5, 5, 5, 5, 5, 5, 5, 5, 5],
-  [5, 16, 16, 16, 16, 16, 12, 13, 9],
-  [5, 16, 16, 16, 16, 16, 10, 11, 14],
-  [6, 6, 6, 6, 8, 8, 6, 8, 8],
-  [8, 8, 8, 6, 8, 6, 6, 8, 8],
-  [9, 12, 13, 6, 6, 6, 7, 15, 15],
-  [9, 10, 11, 16, 16, 16, 7, 15, 15],
-  [7, 7, 6, 6, 9, 9, 7, 15, 15],
-  [5, 5, 5, 5, 5, 5, 5, 5, 5]
-];
-
-var pcTileMap = [
-  [5, 7, 7, 5, 5, 5, 5, 5, 5],
-  [5, 8, 8, 8, 8, 8, 8, 8, 5],
-  [5, 8, 8, 8, 8, 8, 8, 8, 5],
-  [9, 6, 6, 6, 6, 6, 6, 6, 6],
-  [9, 6, 6, 6, 6, 6, 6, 6, 6],
-  [5, 8, 8, 8, 8, 8, 8, 8, 5],
-  [5, 8, 8, 8, 8, 8, 8, 8, 5],
-  [5, 8, 8, 8, 8, 8, 8, 8, 5],
-  [5, 5, 5, 5, 5, 5, 5, 5, 5],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 2, 3, 3, 3, 3, 3, 6, 8],
+  [1, 1, 4, 4, 4, 4, 4, 7, 9],
+  [2, 2, 2, 2, 2, 2, 2, 0, 5],
+  [0, 0, 0, 0, 0, 0, 0, 0, 2],
+  [1, 1, 2, 2, 0, 2, 2, 2, 2],
+  [1, 17, 16, 15, 2, 2, 2, 2, 2],
+  [1, 12, 13, 14, 18, 19, 2, 10, 11],
+  [1, 2, 2, 2, 2, 2, 1, 1, 1]
 ];
 
 let gameWrapperEl = document.getElementById('gameScreen');
 
 const FRAME_WIDTH = startTileMap[0].length * TILE_WIDTH;
 const FRAME_HEIGHT = startTileMap.length * TILE_HEIGHT;
-
-function pokemonBattle() {
-  console.log('screen will come');
-
-  box.classList.remove('fadeOut');
-  boxText.innerHTML = "";
-  boxText.innerHTML = "What's the hurry, Ash? Let's put on a battle to see who's got the stronger pokemon!"
-
-  let loadingScreen = document.getElementById('loadingScreen');
-
-
-  setTimeout(function () {
-    loadingScreen.classList.remove('fadeOut');
-    loadingScreen.classList.add('fadeIn');
-    gameScreen.classList.remove('fadeIn');
-  }, 3000)
-
-
-  setTimeout(function () {
-    loadingScreen.classList.add('fadeOut');
-    gameScreen.classList.add('fadeOut');
-    battleScreen.classList.remove('hide');
-  }, 4000)
-
-  renderPokemon();
-}
 
 function Tile({
   width = TILE_WIDTH,
@@ -626,7 +295,7 @@ function GamePlay() {
 
     let player = document.getElementById('player');
     let playerPosition = {
-      x: 408,
+      x: 476,
       y: 216
     };
 
@@ -689,42 +358,8 @@ function GamePlay() {
     }
 
     function checkCollision(nextXIndex, nextYIndex) {
-      let nextTileType = startTileMap[nextYIndex][nextXIndex]; //tILES_MAP[3][3]
-
-      return nextTileType !== 6 && nextTileType !== 8;
-    }
-
-    function tileMapChange() {
-
-      player.tilechange = true;
-
-      player.style.top = 216 + 'px';
-      player.style.left = 544 + 'px';
-
-      playerPosition = {
-        x: 544,
-        y: 216
-      }
-
-
-      professor.classList.add('hide');
-      gary.classList.remove('hide');
-
-
-      for (let i = 0; i < pcTileMap.length; i++) {
-        for (let j = 0; j < pcTileMap[i].length; j++) {
-          let tileObj = new Tile({
-            xIndex: j,
-            yIndex: i,
-            bgType: pcTileMap[i][j]
-          });
-          const tileEl = tileObj.getElement();
-
-          gameWrapperEl.appendChild(tileEl);
-        }
-      }
-
-      foe.classList.remove('hide');
+      let nextTileType = startTileMap[nextYIndex][nextXIndex];
+      return nextTileType !== 0;
     }
 
     function move(direction) {
@@ -751,18 +386,18 @@ function GamePlay() {
         box.classList.add('fadeOut');
 
         if (player.talk) {
-          if (playerTileIndexX == 1 && playerTileIndexY == 3) {
-            tileMapChange();
-          }
-        }
-
-        if (player.tilechange) {
-          if (playerTileIndexX == 2 && playerTileIndexY == 4) {
+          if (playerTileIndexX == 1 && playerTileIndexY == 4) {
+            mainTheme.src = "";
+            garyAppearance.play();
+            setTimeout(function () {
+              garyAppearance.src = "";
+              pokemonBattleMusic.play();
+            }, 2800);
+            exclamation.classList.remove('hide');
             pokemonBattle();
           }
         }
 
-        // check the tile type
         const isCollisionAhead = checkCollision(playerTileIndexX - 1, playerTileIndexY);
 
         if (isCollisionAhead) {
@@ -780,7 +415,6 @@ function GamePlay() {
         box.classList.remove('fadeIn');
         box.classList.add('fadeOut');
 
-        // check the tile type
         const isCollisionAhead = checkCollision(playerTileIndexX + 1, playerTileIndexY);
 
         if (isCollisionAhead) {
@@ -797,10 +431,7 @@ function GamePlay() {
         box.classList.remove('fadeIn');
         box.classList.add('fadeOut');
 
-        // check the tile type
         const isCollisionAhead = checkCollision(playerTileIndexX, playerTileIndexY - 1);
-
-
 
         if (isCollisionAhead) {
           return;
@@ -812,13 +443,10 @@ function GamePlay() {
       }
 
       if (direction == 'down') {
-        // check the tile type
         const isCollisionAhead = checkCollision(playerTileIndexX, playerTileIndexY + 1);
 
-
-
         //oak placement
-        if (playerTileIndexX == 3 && playerTileIndexY == 5) {
+        if (playerTileIndexX == 4 && playerTileIndexY == 5) {
 
           resetPlayerBg();
           box.classList.remove('fadeOut');
@@ -845,13 +473,11 @@ function GamePlay() {
           count += 1;
           console.log('count us ' + count);
 
-
         }
 
         if (isCollisionAhead) {
           return;
         }
-
 
         bgY = 0;
         xInc = 0;
@@ -896,20 +522,385 @@ function GamePlay() {
 
 }
 
+function choosePokemonText() {
+  boxText.innerHTML = "";
+  boxText.innerHTML = "Great choice! You picked " + player.pokemon.name + "! It's a " + player.pokemon.type + " type pokemon. You can get going now :)"
+  gameScreen.classList.remove('hide');
+}
 
-var boxText = document.getElementById("box-text")
+function changeScreen(ballIndex) {
+  chooseScreen.style.display = 'none';
+  gameScreen.classList.remove('fadeOut');
+  gameScreen.classList.add('fadeIn');
 
-function typeWriter(txt) {
-  console.log(txt.length);
+  if (ballIndex == 1) {
+    player.pokemon = pokemon1;
+    player.choose = true;
+    gary.style.display = 'block';
+    startMusic.play();
+    choosePokemonText();
+  }
+  if (ballIndex == 2) {
+    player.pokemon = pokemon2;
+    player.choose = true;
+    gary.style.display = 'block';
+    startMusic.play();
+    choosePokemonText();
+  }
+  if (ballIndex == 3) {
+    player.pokemon = pokemon3;
+    player.choose = true;
+    gary.style.display = 'block';
+    startMusic.play();
+    choosePokemonText();
+  }
+  renderPokemon();
+}
 
-  for (var i = 0; i < txt.length; i++) {
-    boxText.innerHTML += txt.charAt(i);
-    setTimeout(typeWriter, 50);
+function renderPokemon() {
+
+  if (player.pokemon.name == "Charizard") {
+    console.log('yay');
+
+    charizardDiv.classList.remove('hide');
+
+    changeName();
+    attackMenuChange();
+    updateHp();
+    updateName();
+    updateLevel();
+  }
+
+  if (player.pokemon.name == "Blastoise") {
+
+    blastoiseDiv.classList.remove('hide');
+
+    changeName();
+    attackMenuChange();
+    updateHp();
+    updateName();
+    updateLevel();
+  }
+
+  if (player.pokemon.name == "Venusaur") {
+
+    venusaurDiv.classList.remove('hide');
+
+    changeName();
+    attackMenuChange();
+    updateHp();
+    updateName();
+    updateLevel();
   }
 }
 
-function gameStart() {
+function changeName() {
+  question.innerHTML = "";
+  question.innerHTML = "What should " + player.pokemon.name + " do?"
+}
+
+function attackMenuChange() {
+  attackButton1.innerHTML = player.pokemon.attacks.attack1.attackname;
+  attackButton2.innerHTML = player.pokemon.attacks.attack2.attackname;
+  attackButton3.innerHTML = player.pokemon.attacks.attack3.attackname;
+  attackButton4.innerHTML = player.pokemon.attacks.attack4.attackname;
+}
+
+
+function updateHp() {
+  playerHp.innerHTML = "HP: " + player.pokemon.hp;
+  foeHp.innerHTML = "HP: " + foe.pokemon.hp;
+}
+
+function updateName() {
+  pokemonName.innerHTML = player.pokemon.name;
+}
+
+function updateLevel() {
+  pokemonLevel.innerHTML = "LVL: " + player.pokemon.level;
+}
+
+// handle attacks + hp updates
+
+fight.addEventListener('click', function () {
+  menuArea.style.backgroundImage = "url('../assets/images/menu_box_fight.jpg')";
+  firstPage.innerHTML = "";
+  question.style.display = 'none';
+  menuList.style.display = 'none';
+  secondPage.classList.remove('hide');
+  secondPage.style.display = 'flex';
+});
+
+function playerProgressBar() {
+  let percentage = player.pokemon.hp / player.pokemon.totalhp;
+  if (percentage <= 0.8) {
+    playerProgress.style.backgroundColor = "#E2C01C";
+    if (percentage <= 0.4) {
+      playerProgress.style.backgroundColor = 'red';
+    }
+  }
+  playerProgress.style.width = ((350 * percentage) + "px");
+}
+
+function foeProgressBar() {
+  let percentage = foe.pokemon.hp / foe.pokemon.totalhp;
+  if (percentage <= 0.8) {
+    foeProgress.style.backgroundColor = "#E2C01C";
+    if (percentage <= 0.4) {
+      foeProgress.style.backgroundColor = 'red';
+    }
+  }
+  foeProgress.style.width = ((350 * percentage) + "px");
+}
+
+function foeAttack() {
+
+  let random = Math.floor((Math.random() * 4));
+  player.pokemon.hp -= (foe.pokemon.attacks[random].attack.power);
+
+  playerHp.innerHTML = "HP: " + player.pokemon.hp;
+
+  foeComment.style.display = 'block';
+  foeCommentBox.innerHTML = "";
+  foeCommentBox.innerHTML = "It's foe Pikachu's turn. Pikachu <br> used " + foe.pokemon.attacks[random].attack.attackname + ".";
+
+  attack.play();
+
+  pikachuDiv.style.top = 190 + "px";
+  pikachuDiv.style.left = 130 + "px";
+  setTimeout(function () {
+    pikachuDiv.style.top = 132 + "px";
+    pikachuDiv.style.left = 424 + "px";
+  }, 500)
+
+  setTimeout(function () {
+    foeComment.style.display = 'none';
+  }, 2500)
+}
+
+function moveAnimate() {
+  if (player.pokemon.name == 'Charizard') {
+    charizardDiv.style.top = 132 + "px";
+    charizardDiv.style.left = 275 + "px";
+    setTimeout(function () {
+      charizardDiv.style.top = 250 + "px";
+      charizardDiv.style.left = 20 + "px";
+    }, 400)
+  }
+
+  if (player.pokemon.name == 'Blastoise') {
+    blastoiseDiv.style.top = 200 + "px";
+    blastoiseDiv.style.left = 325 + "px";
+    setTimeout(function () {
+      blastoiseDiv.style.top = 330 + "px";
+      blastoiseDiv.style.left = 90 + "px";
+    }, 400)
+  }
+
+  if (player.pokemon.name == 'Venusaur') {
+    venusaurDiv.style.top = 200 + "px";
+    venusaurDiv.style.left = 375 + "px";
+    setTimeout(function () {
+      venusaurDiv.style.top = 370 + "px";
+      venusaurDiv.style.left = 100 + "px";
+    }, 400)
+  }
+
+}
+
+function attackMusic() {
+  attack.play();
+}
+
+attackButton1.addEventListener('click', function attack() {
+
+  attackMusic();
+
+  foe.pokemon.hp -= (player.pokemon.attacks.attack1.power);
+  foeHp.innerHTML = "HP: " + foe.pokemon.hp;
+  foeComment.style.display = 'block';
+  foeCommentBox.innerHTML = player.pokemon.name + " used " + player.pokemon.attacks.attack1.attackname + ".";
+
+  foeProgressBar();
+
+  if (foe.pokemon.hp <= 0) {
+    playerWin();
+  }
+
+  else {
+
+    setTimeout(function () {
+      foeAttack();
+      playerProgressBar();
+      if (player.pokemon.hp <= 0) {
+        foeWin();
+
+      }
+    }, 3000);
+  }
+
+});
+
+
+attackButton2.addEventListener('click', function attack() {
+
+  attackMusic();
+
+  foe.pokemon.hp -= (player.pokemon.attacks.attack2.power);
+  foeHp.innerHTML = "HP: " + foe.pokemon.hp;
+  foeComment.style.display = 'block';
+  foeCommentBox.innerHTML = player.pokemon.name + " used " + player.pokemon.attacks.attack2.attackname + ".";
+
+  foeProgressBar();
+
+  if (foe.pokemon.hp <= 0) {
+    playerWin();
+  }
+
+  else {
+
+    setTimeout(function () {
+      foeAttack();
+      playerProgressBar();
+      if (player.pokemon.hp <= 0) {
+        foeWin();
+
+      }
+    }, 3000);
+  }
+
+});
+
+attackButton3.addEventListener('click', function attack() {
+
+  attackMusic();
+
+  foe.pokemon.hp -= (player.pokemon.attacks.attack3.power);
+  foeHp.innerHTML = "HP: " + foe.pokemon.hp;
+  foeComment.style.display = 'block';
+  foeCommentBox.innerHTML = player.pokemon.name + " used " + player.pokemon.attacks.attack3.attackname + ".";
+
+
+  foeProgressBar();
+
+  if (foe.pokemon.hp <= 0) {
+    playerWin();
+  }
+
+  else {
+
+    setTimeout(function () {
+      foeAttack();
+      playerProgressBar();
+      if (player.pokemon.hp <= 0) {
+        foeWin();
+
+      }
+    }, 3000);
+  }
+
+});
+
+attackButton4.addEventListener('click', function attack() {
+
+  attackMusic();
+
+  foe.pokemon.hp -= (player.pokemon.attacks.attack4.power);
+  foeHp.innerHTML = "HP: " + foe.pokemon.hp;
+  foeComment.style.display = 'block';
+  foeCommentBox.innerHTML = player.pokemon.name + " used " + player.pokemon.attacks.attack4.attackname + ".";
+
+  foeProgressBar();
+
+  if (foe.pokemon.hp <= 0) {
+    playerWin();
+  }
+  else {
+    setTimeout(function () {
+      foeAttack();
+      playerProgressBar();
+      if (player.pokemon.hp <= 0) {
+        foeWin();
+      }
+    }, 3000);
+  }
+});
+
+
+function foeWin() {
+  player.pokemon.hp = 0;
+  updateHp();
+  comment.innerHTML = "Pikachu won"
+  endPage();
+};
+
+function playerWin() {
+  foe.pokemon.hp = 0;
+  updateHp();
+  comment.innerHTML = "You Won!"
+  winnerEndScreen();
+}
+
+
+run.addEventListener('click', function () {
+  endPage();
+});
+
+
+playAgain.addEventListener('click', function () {
+  location.reload();
+});
+
+function endPage() {
+
+  pokemonBattleMusic.src = "";
+  playerLoss.play();
+  battleScreen.style.display = "none";
+  endScreen.classList.remove('hide');
+  endScreen.style.display = "block";
+  endScreen.style.background = '#843118';
+}
+
+function winnerEndScreen() {
+  pokemonBattleMusic.src = "";
+  playerVictory.play();
+  battleScreen.style.display = 'none';
+  endScreen.classList.remove('hide');
+  endScreenMessage.innerHTML = 'You Won!'
+}
+
+function pokemonBattle() {
+  console.log('screen will come');
+
+  box.classList.remove('fadeOut');
+  boxText.innerHTML = "";
+  boxText.innerHTML = "What's the hurry, Ash? Let's put on a battle to see who's got the stronger pokemon!"
+
   let loadingScreen = document.getElementById('loadingScreen');
+
+  setTimeout(function () {
+    loadingScreen.classList.remove('fadeOut');
+    loadingScreen.classList.add('fadeIn');
+    gameScreen.classList.remove('fadeIn');
+  }, 3000)
+
+  setTimeout(function () {
+    loadingScreen.classList.add('fadeOut');
+    gameScreen.classList.add('fadeOut');
+    battleScreen.classList.remove('hide');
+  }, 4000)
+
+  renderPokemon();
+}
+
+function gameStart() {
+
+  setTimeout(function () {
+    mainTheme.play();
+  }, 1000)
+
+  let loadingScreen = document.getElementById('loadingScreen');
+
 
   startScreen.classList.add('fadeOut');
   gameScreen.classList.add('fadeOut');
@@ -919,7 +910,7 @@ function gameStart() {
   setTimeout(function () {
     loadingScreen.classList.add('fadeIn');
 
-    // typeWriter();
+
 
     loadingScreen.classList.remove('fadeIn');
     loadingScreen.classList.add('fadeOut');
@@ -941,8 +932,6 @@ function gameStart() {
 
 };
 
-
 let gamePlay = new GamePlay();
 
 gamePlay.init();
-

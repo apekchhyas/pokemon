@@ -14,7 +14,7 @@
 
 <body>
 
-  <div class="container">
+  <div class="container" onload="bgMusic()">
 
     <div class="wrapper" id="wrapper">
 
@@ -59,6 +59,10 @@
             <div class="professor" id="professor"></div>
 
             <div class="gary hide" id="gary"></div>
+
+            <div class="exclamation hide" id="exclamation">
+              <img src="assets/images/exclamation.png" alt="">
+            </div>
 
             <div class="box fadeOut">
               <p class="box-text" id="box-text">Welcome to the world of Pokémon, Ash! Talk to Prof. Oak to get your
@@ -155,14 +159,18 @@
                   <div class="second-page hide" id="second-page">
 
                     <ul class="attack-list">
-                      <li class="attack-list__item"> <button class="attack-button attack-button1">Ember</button>
+                      <li class="attack-list__item"> <button class="attack-button attack-button1"
+                          onclick="moveAnimate(); attackMusic();">Ember</button>
                       </li>
-                      <li class="attack-list__item"> <button class="attack-button attack-button2">Dragon
+                      <li class="attack-list__item"> <button class="attack-button attack-button2"
+                          onclick="moveAnimate()">Dragon
                           Claw</button>
                       </li>
-                      <li class="attack-list__item"><button class="attack-button attack-button3">Scratch</button>
+                      <li class="attack-list__item"><button class="attack-button attack-button3"
+                          onclick="moveAnimate()">Scratch</button>
                       </li>
-                      <li class="attack-list__item"><button class="attack-button attack-button4">Fire Tail</button>
+                      <li class="attack-list__item"><button class="attack-button attack-button4"
+                          onclick="moveAnimate()">Fire Tail</button>
                       </li>
                     </ul>
 
