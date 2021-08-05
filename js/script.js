@@ -623,7 +623,7 @@ function updateLevel() {
 // handle attacks + hp updates
 
 fight.addEventListener('click', function () {
-  menuArea.style.backgroundImage = "url('pokemon/assets/images/menu_box_fight.jpg')";
+  menuArea.style.backgroundImage = "url('assets/images/menu_box_fight.jpg')";
   firstPage.innerHTML = "";
   question.style.display = 'none';
   menuList.style.display = 'none';
