@@ -19,6 +19,11 @@ body {
 .container {
   width: 616px;
   margin: 0 auto;
+  background-color: #2e3133;
+}
+
+.wrapper {
+  background-color: #2e3133;
 }
 
 .pokemon-game {
@@ -211,7 +216,7 @@ div.fadeIn {
 }
 
 .gameScreen {
-  background: #fff;
+  background: #2e3133;
   /* background-image: url(/assets/images/pokemon_terrain.jpg); */
   background-size: cover;
   height: 100vh;
