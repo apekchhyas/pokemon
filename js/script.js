@@ -8,13 +8,13 @@ let garyAppearance = new Audio();
 let attack = new Audio();
 let playerLoss = new Audio();
 
-mainTheme.src = '..pokemon/assets/sfx/main-theme.mp3'
-playerVictory.src = '..pokemon/assets/sfx/pokemonvictory.mp3'
-pokemonBattleMusic.src = '..pokemon/assets/sfx/pokemonbattle.mp3'
-startMusic.src = '..pokemon/assets/sfx/gameboy_start.mp3'
-garyAppearance.src = '..pokemon/assets/sfx/garyappearance.mp3'
-attack.src = '..pokemon/assets/sfx/attack.wav'
-playerLoss.src = '..pokemon/assets/sfx/over.mp3'
+mainTheme.src = '/assets/sfx/main-theme.mp3'
+playerVictory.src = '/assets/sfx/pokemonvictory.mp3'
+pokemonBattleMusic.src = '/assets/sfx/pokemonbattle.mp3'
+startMusic.src = '/assets/sfx/gameboy_start.mp3'
+garyAppearance.src = '/assets/sfx/garyappearance.mp3'
+attack.src = '/assets/sfx/attack.wav'
+playerLoss.src = '/assets/sfx/over.mp3'
 
 // screens
 
@@ -623,7 +623,7 @@ function updateLevel() {
 // handle attacks + hp updates
 
 fight.addEventListener('click', function () {
-  menuArea.style.backgroundImage = "url('..pokemon/assets/images/menu_box_fight.jpg')";
+  menuArea.style.backgroundImage = "url('/assets/images/menu_box_fight.jpg')";
   firstPage.innerHTML = "";
   question.style.display = 'none';
   menuList.style.display = 'none';
