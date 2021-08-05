@@ -8,13 +8,13 @@ let garyAppearance = new Audio();
 let attack = new Audio();
 let playerLoss = new Audio();
 
-mainTheme.src = '/assets/sfx/main-theme.mp3'
-playerVictory.src = '/assets/sfx/pokemonvictory.mp3'
-pokemonBattleMusic.src = '/assets/sfx/pokemonbattle.mp3'
-startMusic.src = '/assets/sfx/gameboy_start.mp3'
-garyAppearance.src = '/assets/sfx/garyappearance.mp3'
-attack.src = '/assets/sfx/attack.wav'
-playerLoss.src = '/assets/sfx/over.mp3'
+mainTheme.src = 'assets/sfx/main-theme.mp3'
+playerVictory.src = 'assets/sfx/pokemonvictory.mp3'
+pokemonBattleMusic.src = 'assets/sfx/pokemonbattle.mp3'
+startMusic.src = 'assets/sfx/gameboy_start.mp3'
+garyAppearance.src = 'assets/sfx/garyappearance.mp3'
+attack.src = 'assets/sfx/attack.wav'
+playerLoss.src = 'assets/sfx/over.mp3'
 
 // screens
 
